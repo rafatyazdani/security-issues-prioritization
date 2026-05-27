@@ -1,0 +1,16 @@
+# Secrets / local config
+.env
+
+# Claude Code per-project settings
+.claude/
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Generated artifacts
+output/*.csv
+output/*.md
