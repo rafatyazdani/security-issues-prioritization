@@ -80,8 +80,41 @@ The framework does not claim to predict any individual loss event. It claims to 
 
 ## Sample Output
 
-> _Placeholder — add a screenshot of the terminal ranked table and one of the notebook charts here after the first run._
+After running the notebook against the 15 sample findings in `data/sample_issues.csv`, the pipeline produces three artifacts:
 
-## About the Author
+**1. Terminal ranked table** — top of the backlog sorted by ROSI multiple:
 
-> _Placeholder._
+```
++------+--------------------------------------------+------------+----------+--------+-----------+
+| Rank | Finding                                    | Risk Domain| ALE ($)  | ROSI   | Tier      |
++------+--------------------------------------------+------------+----------+--------+-----------+
+|   1  | Unpatched RCE — internet-facing web app    | Infra      | 4,500,000| 161x   | Immediate |
+|   2  | SQL injection — customer portal            | App        | 4,500,000| 58x    | Immediate |
+|   3  | Vendor excessive data access               | Third-party| 975,000  | 38x    | Immediate |
+|   4  | TLS 1.0 on API gateway                     | Network    | 975,000  | 28x    | Immediate |
+|   5  | IDOR — HR application                      | App        | 975,000  | 25x    | Immediate |
++------+--------------------------------------------+------------+----------+--------+-----------+
+
+Portfolio: 15 findings · Total ALE: $14.2M · Recommended sprint ALE reduction: $9.1M
+```
+
+**2. `output/ranked_remediation_backlog.csv`** — the full backlog with the LLM's rationale field preserved per row. Suitable for direct paste into a GRC tool or JIRA.
+
+**3. `output/executive_summary.md`** — a stakeholder-facing markdown report with portfolio overview, top-5 sprint plan, and recommended target dates per priority tier. Drop into a Risk Committee read-out as-is.
+
+## Related artifacts in the portfolio
+
+- The ranked backlog this pipeline produces is **schema-compatible** with the Issue Register tab of the [`security-risk-register`](https://github.com/rafatyazdani/security-risk-register) Excel workbook — paste the CSV, and the monthly board dashboard updates automatically.
+- For the **regulatory finding** (not security finding) equivalent, see [`compliance-copilot`](https://github.com/rafatyazdani/compliance-copilot) — same Ollama backend, similar remediation JSON schema, applied to GDPR / DORA / NIS2 / SOC 2 / ISO 27001 audit findings instead of vulnerability-scanner output.
+- For the **portfolio-level financial exposure** that the ALE numbers in this tool sum into, see [`cyber-risk-quantification`](https://github.com/rafatyazdani/cyber-risk-quantification) and the [`CRQ-Dashboard`](https://github.com/rafatyazdani/CRQ-Dashboard).
+- Methodology source: **CRQ-F Framework** Phase 1 (Input Calibration) + Phase 2 (Control ROI), addressing gap G4 (GRC-to-Quant Bridge).
+
+---
+
+**Built by Rafat Yazdani** — CPA · CISSP · CISA · CCSK · AWS Certified
+Security Strategy & Cyber Risk Quantification — Accenture Security
+
+Eleven-plus years in GRC, cyber risk quantification, and security strategy across Accenture, Schellman & Company, EY, and BDO USA. Specialty: translating technical risk into board-ready financial decisions for digital-native and regulated-industry clients.
+
+> Methodology backbone: **CRQ-F Framework** (Cyber Risk Quantification — Financial).
+> Portfolio overview: [github.com/rafatyazdani](https://github.com/rafatyazdani) — Methodology · Quantification math · Consulting products · Governance & maturity · Operations · Board output.
